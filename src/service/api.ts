@@ -1,7 +1,7 @@
 import fetch from "cross-fetch";
 import { Sponsor } from "@/types";
 
-const sponsorUrl = 'http://192.168.1.108:8080/sponsors'
+const sponsorUrl = 'https://uksponsorapi.herokuapp.com/sponsors'
 
 async function ping() {
    return await fetch(sponsorUrl)

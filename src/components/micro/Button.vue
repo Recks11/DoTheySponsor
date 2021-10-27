@@ -1,9 +1,14 @@
-<script setup lang="ts">
+<script setup lang="ts">import { defineComponent } from '@vue/runtime-core';
+
 
 defineProps({
    text: {
       type: String,
       required: true
+   },
+   disabled: {
+      type: Boolean,
+      default: false
    }
 })
 
@@ -11,9 +16,12 @@ function upperCase(str: string) {
    return str.toUpperCase()
 }
 
+defineComponent({
+   inheritAttrs: true
+})
 </script>
 <template>
-   <button type="button">{{ upperCase(text) }}</button>
+   <button v-bind="$attrs" :disabled="disabled" type="button">{{ upperCase(text) }}</button>
 </template>
 
 <style scoped>
@@ -30,5 +38,16 @@ button:hover {
    background: white;
    cursor: pointer;
    color: var(--text-color);
+}
+
+button:disabled,
+button[disabled] {
+   cursor: not-allowed !important;
+   background: gray;
+}
+
+.disabled:hover {
+   background: gray;
+   color: var(--text-color-alt);
 }
 </style>

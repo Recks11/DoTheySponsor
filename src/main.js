@@ -8,6 +8,6 @@ import '@/css/global.css'
 const { on } = useEvent()
 
 on(Events.PING, (data) => console.log('pinged server', data))
-on(Events.ERROR, (data) => console.error('an error occured', data))
+on(Events.ERROR, (data) => console.error('an error occured', data.message))
 
 createApp(App).mount('#app')
