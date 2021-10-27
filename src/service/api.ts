@@ -1,21 +1,32 @@
-import fetch from "cross-fetch";
+import Events from '@/events';
+import useEvent from '@/state/useEvent';
 import { Sponsor } from "@/types";
+import fetch from "cross-fetch";
 
-const sponsorUrl = 'https://uksponsorapi.herokuapp.com/sponsors'
+const { LOADING, LOADED } = Events
+const { emit } = useEvent()
+
+const sponsorUrl = 'http://192.168.1.108:8080/sponsors'
 
 async function ping() {
+   emit(LOADING)
    return await fetch(sponsorUrl)
       .then(res => res.json())
+      .finally(() => emit(LOADED))
 }
 
 async function getSponsor(name: string) {
+   emit(LOADING)
    return await fetch(`${sponsorUrl}?name=${name}`)
       .then(res => extractBodyArray(res))
+      .finally(() => emit(LOADED))
 }
 
 async function findSponsorsByType(type: string) {
+   emit(LOADING)
    return await fetch(`${sponsorUrl}?type=${type}`)
       .then(res => extractBodyArray(res))
+      .finally(() => emit(LOADED))
 }
 
 async function requestBody(response: Response) {

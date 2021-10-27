@@ -3,6 +3,7 @@ const events = new Map<String, Function[]>()
 export default function useEvent() {
 
    function on(key: string, callback: Function) {
+      console.info('Registered event [%s]', key)
       if (events.has(key)) {
          events.get(key)?.concat(callback)
          return;
@@ -15,6 +16,7 @@ export default function useEvent() {
    }
 
    function emit(key: string, data?: any) {
+      console.info('emit [%s]', key)
       if (!events.has(key)) return;
       const fns = events.get(key)
       if (fns != undefined) {

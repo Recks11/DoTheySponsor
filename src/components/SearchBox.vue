@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import Button from '@/components/micro/Button.vue';
 import useEvent from '@/state/useEvent';
 import useMutation from '@/state/useMutation';
-import { Events } from "@/state/events";
+import Events from "@/events";
 const { on } = useEvent()
 const { findSponsor } = useMutation()
 
 const entry = ref('')
 const enableSearch = ref(true)
-on(Events.SEARCH_ERROR, () => entry.value = '')
-on(Events.LOADING, () => enableSearch.value = false)
-on(Events.LOADED, () => enableSearch.value = true)
+onMounted(() => {
+   on(Events.SEARCH_ERROR, () => entry.value = '')
+   on(Events.LOADING, () => enableSearch.value = false)
+   on(Events.LOADED, () => enableSearch.value = true)
+})
 
 </script>
 
@@ -25,8 +27,8 @@ on(Events.LOADED, () => enableSearch.value = true)
          @keyup.enter="findSponsor(entry)"
       />
       <Button
-         class="input-action"
-         :disabled="enableSearch"
+         class="input-action button-large"
+         :disabled="!enableSearch"
          text="search"
          @click.prevent="findSponsor(entry)"
       />
@@ -43,9 +45,11 @@ on(Events.LOADED, () => enableSearch.value = true)
 .input-text {
    margin-right: 5px;
    width: 500px;
-   padding: 2px 4px;
-   border-radius: 0;
-   border: 1px solid var(--text-color);
+   padding: 1px 0.5em;
+   border-radius: 5px;
+   border: 0px solid var(--text-color);
+   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+   font-weight: 500;
 }
 
 .input-text:focus {

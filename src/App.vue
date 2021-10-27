@@ -2,13 +2,12 @@
 import Footer from '@/components/Footer.vue';
 import Landing from '@/components/Landing.vue';
 import useState from '@/state/useState';
-// import useEvent from './state/useEvent';
+import { onMounted } from '@vue/runtime-core';
 import useMutation from './state/useMutation';
 
 const { sponsorCount } = useState()
 const { ping } = useMutation()
-// const { on, emit } = useEvent()
-ping()
+onMounted(() => ping())
 
 function toggleTheme() {
   const bodyClass = document.getElementById('body')?.getAttribute('class');

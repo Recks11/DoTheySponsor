@@ -1,21 +1,26 @@
 <script setup lang=ts>
+import Button from "@/components/micro/Button.vue";
 import { Sponsor } from "@/types";
-import { PropType } from "vue";
+import { parsePercentage } from '@/util/ratingparser';
+import { PropType, reactive } from "vue";
 
-defineProps({
+const percentage = reactive({
+   '--progress': '0%'
+})
+
+const props = defineProps({
    sponsor: {
       type: Object as PropType<Sponsor>,
       required: true
    }
 })
 
-function exists(data: string) {
-   return data != undefined && data.length > 0
+function clean(data: string) {
+   return data.replace('_', ' ')
 }
 
-function arrExists(data: Array<String>) {
-   return data != undefined && data.length > 0
-}
+percentage["--progress"] = `${parsePercentage(props.sponsor.rating)}%`
+
 </script>
 
 <template>
@@ -30,13 +35,13 @@ function arrExists(data: Array<String>) {
       </div>
       <div class="sponsor-info">
          <div class="progress-container">
-            <div class="progress"></div>
-            <span class="progress-text">rating</span>
+            <div class="progress" :style="[percentage]"></div>
+            <span class="progress-text">RATING: {{ sponsor.rating }}</span>
          </div>
-         <h6>Rating: {{ sponsor.rating }}</h6>
-         <h2>{{ sponsor.type }}</h2>
+         <h6>TYPE</h6>
+         <h2>{{ clean(sponsor.type) }}</h2>
          <div class="sponsor-routes">
-            <button class="btn" v-for="route in sponsor.route">{{ route }}</button>
+            <Button class="button-sm mt5" :text="route" v-for="route in sponsor.route" />
          </div>
       </div>
    </div>
@@ -51,6 +56,7 @@ function arrExists(data: Array<String>) {
 }
 
 .sponsor {
+   --content-padding: 30px;
    background-color: var(--card-detail-background-color);
    border-radius: 10px;
    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
@@ -76,7 +82,7 @@ function arrExists(data: Array<String>) {
 .sponsor-preview {
    background-color: var(--color-primary);
    color: #fff;
-   padding: 30px;
+   padding: var(--content-padding);
    width: 350px;
 }
 
@@ -85,25 +91,26 @@ function arrExists(data: Array<String>) {
    display: inline-block;
    font-size: 12px;
    opacity: 0.6;
-   margin-top: 30px;
+   margin-top: var(--content-padding);
    text-decoration: none;
 }
 
 .sponsor-info {
-   padding: 30px;
+   padding: var(--content-padding);
    position: relative;
    width: 100%;
 }
 
 .progress-container {
    position: absolute;
-   top: 30px;
-   right: 30px;
+   top: var(--content-padding);
+   right: var(--content-padding);
    text-align: right;
    width: 150px;
 }
 
 .progress {
+   --progress: 100%;
    background-color: var(--progress-bar-back);
    border-radius: 3px;
    height: 5px;
@@ -118,30 +125,24 @@ function arrExists(data: Array<String>) {
    top: 0;
    left: 0;
    height: 5px;
-   width: 100%;
+   width: var(--progress);
 }
 
 .progress-text {
-   font-size: 10px;
+   font-size: 0.6em;
    opacity: 0.6;
    letter-spacing: 1px;
 }
 
 .sponsor-routes {
+   text-align: right;
    position: absolute;
-   bottom: 30px;
-   right: 30px;
+   bottom: var(--content-padding);
+   right: var(--content-padding);
+   left: var(--content-padding);
 }
 .btn {
-   background-color: var(--color-primary);
-   border: 0;
-   border-radius: 5px;
-   box-shadow: 0 10px 10px var(--button-shadow);
-   color: var(--card-detail-background-color);
-   font-size: 0.8em;
-   padding: 5px 10px;
-   margin-left: 5px;
-   letter-spacing: 1px;
+   margin-top: 10px;
 }
 
 @media screen and (max-width: 767px) {
@@ -160,39 +161,9 @@ function arrExists(data: Array<String>) {
    .sponsor-info {
       height: 150px;
    }
-}
 
-/* .card { */
-/* --content-padding: 1rem;
-   display: grid;
-   grid-template-columns: 1fr 2fr;
-   grid-template-rows: auto;
-   margin: 1rem;
-   border-radius: var(--content-padding);
-   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+   .progress-text {
+      font-size: 0.8em;
+   }
 }
-.card-main {
-   display: flex;
-   flex-direction: row;
-   font-weight: bold;
-   background-color: var(--text-color);
-   color: var(--text-color-alt);
-   border-radius: var(--content-padding) 0 0 var(--content-padding);
-}
-
-.card-main > .main-content {
-   margin: 0;
-}
-
-.label {
-   margin-right: 0.6rem;
-}
-
-.card-details {
-   border-radius: 0 var(--content-padding) var(--content-padding) 0;
-}
-.card-detail {
-   margin: 0;
-   text-align: left;
-} */
 </style>

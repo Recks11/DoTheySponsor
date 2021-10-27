@@ -29,6 +29,6 @@ defineComponent({
 
 <style scoped>
 .search {
-  margin: 12px 0;
+  margin: 12px 19px;
 }
 </style>

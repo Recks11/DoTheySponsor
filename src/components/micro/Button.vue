@@ -26,18 +26,25 @@ defineComponent({
 
 <style scoped>
 button {
-   background: var(--color-primary);
-   padding: 8px;
-   border: 1px solid var(--text-color);
-   border-radius: 0;
-   color: var(--text-color-alt);
-   font-weight: 700;
+   background-color: var(--color-primary);
+   border: 0;
+   border-radius: 5px;
+   box-shadow: var(--button-shadow);
+   color: var(--card-detail-background-color);
+   font-size: 0.8em;
+   padding: 5px 10px;
+   margin-left: 5px;
+   letter-spacing: 1px;
+   transition: transform ease-in 80ms;
 }
 
+
+
 button:hover {
-   background: white;
+   /* background: white; */
    cursor: pointer;
-   color: var(--text-color);
+   /* color: var(--text-color); */
+   transform: scale(1.05);
 }
 
 button:disabled,
@@ -49,5 +56,13 @@ button[disabled] {
 .disabled:hover {
    background: gray;
    color: var(--text-color-alt);
+}
+
+.button-large {
+   padding: 0.6em 1em;
+}
+
+.button-sm {
+   padding: 0.3em 0.8em;
 }
 </style>
