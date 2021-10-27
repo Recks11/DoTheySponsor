@@ -1,0 +1,81 @@
+/*  fonts */
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300;1,400;1,700&display=swap');
+* {
+   box-sizing: border-box;
+}
+
+html, body {
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+   font-size: 18px;
+}
+
+body {
+   background-image: var(--main-background-image);
+}
+
+.light {
+   --nav-bar-height: 60px;
+   --color-primary: #2a265f;
+   --text-color: #2c3e50;
+   --text-color-alt: #ffffff;
+   --link-color: #42b983;
+   --main-font: "Barlow",sans-serif;
+   --card-detail-background-color: #fff;
+   --button-shadow: rgba(0, 0, 0, 0.2);
+   --progress-bar-back: #ddd;
+   --progress-bar: var(--color-primary);
+   --main-background-image: linear-gradient(45deg, #ddddee, #ffffff);;
+}
+
+
+#app {
+  color: var(--text-color);
+  margin-top: var(--nav-bar-height);
+  min-height: calc(100vh - var(--nav-bar-height));
+  font-family: var(--main-font);
+}
+
+.container {
+   width: 80%;
+   margin: 0 auto;
+}
+
+.center {
+   text-align: center;
+}
+
+a {
+  color: var(--link-color);
+}
+
+h1 {
+   font-size: 1.5em;
+}
+h2 {
+   font-size: 1.3em;
+}
+h3 {
+   font-size: 1.2em;
+}
+
+.header { font-weight: 700;}
+
+@media screen and (max-width: 960px) {
+   html, body {
+   font-size: 15px;
+}
+
+   .container {
+      width: 90%;
+   }
+}
+
+@media screen and (max-width: 767px) {
+   html, body {
+      font-size: 13px;
+   }
+   .container {
+      width: 100%;
+   }
+}
