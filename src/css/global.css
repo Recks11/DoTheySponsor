@@ -12,6 +12,7 @@ html, body {
 
 body {
    background-image: var(--main-background-image);
+   margin: 0 8px;
 }
 
 .light {
