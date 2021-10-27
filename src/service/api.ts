@@ -6,7 +6,7 @@ import fetch from "cross-fetch";
 const { LOADING, LOADED } = Events
 const { emit } = useEvent()
 
-const sponsorUrl = 'http://192.168.1.108:8080/sponsors'
+const sponsorUrl = `${import.meta.env.VITE_API_URL}/sponsors`
 
 async function ping() {
    emit(LOADING)

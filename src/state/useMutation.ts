@@ -15,7 +15,7 @@ export default function useMutation() {
          emit(PING, response)
          setSponsorCount(response.length)
       } catch (err) {
-         emit(ERROR, err as string)
+         emit(ERROR, err)
       }
    }
 
@@ -25,7 +25,7 @@ export default function useMutation() {
          emit(FOUND, res.length)
          setSponsors(res)
       } catch (err) {
-         emit(ERROR, err as string)
+         emit(ERROR, err)
          emit(SEARCH_ERROR)
       }
    }
@@ -36,7 +36,7 @@ export default function useMutation() {
          setSponsors(res)
          emit(FOUND, res.length)
       } catch (error) {
-         emit(ERROR, error as string)
+         emit(ERROR, error)
       }
    }
 

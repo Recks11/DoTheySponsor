@@ -2,7 +2,7 @@
   "name": "dotheysponsor",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --mode development",
     "build": "vite build",
     "serve": "vite preview"
   },
