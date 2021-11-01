@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import Footer from '@/components/Footer.vue';
 import Landing from '@/components/Landing.vue';
+import Modal from '@/components/micro/Modal.vue';
 import useState from '@/state/useState';
 import { onMounted } from '@vue/runtime-core';
-import useMutation from './state/useMutation';
+import useMutation from '@/state/useMutation';
 
 const { sponsorCount } = useState()
 const { ping } = useMutation()
@@ -27,6 +28,7 @@ function toggleTheme() {
       >There are currently {{ sponsorCount }} Companies that provide Sponsorship</h1>
       <Landing msg="Do They Sponsor?" />
       <Footer />
+      <Modal />
     </div>
   </div>
 </template>

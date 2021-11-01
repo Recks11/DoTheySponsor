@@ -4,5 +4,7 @@ export enum Events {
    PING = 'ping',
    FOUND = 'found',
    LOADING = 'loading',
-   LOADED = 'loaded'
+   LOADED = 'loaded',
+   MODAL_SHOW = 'modal-show',
+   MODAL_HIDE = 'modal-hide'
 }
