@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import useEvent from '@/state/useEvent'
 import Events from '@/events'
-import { AppNotification, getNotificationStyle } from '@/util/notificationParser'
+import { AppNotification, getNotificationStyle } from '@/util/notifier'
 
 const { MODAL_SHOW, MODAL_HIDE } = Events
 const { on } = useEvent()
@@ -11,8 +11,10 @@ const message = ref('Loading Data ...')
 const isHidden = ref(false)
 
 on(MODAL_SHOW, (msg: AppNotification) => {
-   parseNotification(msg)
+   const n = getNotificationStyle(msg.type);
+   document.getElementById('modal-sec')!.className = `modal ${n}`
    message.value = msg.message
+   isHidden.value = false
 })
 
 on(MODAL_HIDE, closeModal)
@@ -25,19 +27,22 @@ function closeModal() {
 function parseNotification(notif: AppNotification) {
    var el = document.getElementById('modal-sec')
    if (el === undefined || el === null) return;
-   el.className = `modal ${getNotificationStyle(notif.type)}`
+   console.log(el)
 }
 
 </script>
 
 <template>
-   <div id="modal-sec" class="modal" v-if="!isHidden">
+   <div id="modal-sec" class="modal" :class="{ 'hide': isHidden }">
       <p class="modal-message">{{ message }}</p>
       <span class="close" @click="closeModal()">X</span>
    </div>
 </template>
 
 <style scoped>
+.hide {
+   display: none;
+}
 .modal {
    z-index: 10001;
    position: fixed;
@@ -62,6 +67,16 @@ function parseNotification(notif: AppNotification) {
    top: 8px;
    right: 8px;
    cursor: pointer;
+}
+
+.error {
+   background-color: rgb(185, 32, 32);
+   color: white;
+}
+
+.warning {
+   background-color: rgb(185, 114, 32);
+   color: white;
 }
 
 @media screen and (max-width: 767px) {
