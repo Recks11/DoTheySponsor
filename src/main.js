@@ -1,9 +1,9 @@
+import '@/css/global.css'
 import { createApp } from 'vue'
 import App from './App.vue'
 import useEvent from '@/state/useEvent'
 import Events from "@/events"
 
-import '@/css/global.css'
 
 const { on } = useEvent()
 on(Events.PING, (data) => console.log('pinged server', data))

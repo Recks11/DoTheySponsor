@@ -24,12 +24,6 @@ function closeModal() {
    isHidden.value = true
 }
 
-function parseNotification(notif: AppNotification) {
-   var el = document.getElementById('modal-sec')
-   if (el === undefined || el === null) return;
-   console.log(el)
-}
-
 </script>
 
 <template>

@@ -1,25 +1,10 @@
 <script setup lang=ts>
-import Button from "@/components/micro/Button.vue";
+import { cleanString } from "@/util/stringutils";
 import { Sponsor } from "@/types";
 import { parsePercentage } from '@/util/ratingparser';
-import { PropType, reactive } from "vue";
+import Button from "@/components/micro/Button.vue";
 
-const percentage = reactive({
-   '--progress': '0%'
-})
-
-const props = defineProps({
-   sponsor: {
-      type: Object as PropType<Sponsor>,
-      required: true
-   }
-})
-
-function clean(data: string) {
-   return data.replace('_', ' ')
-}
-
-percentage["--progress"] = `${parsePercentage(props.sponsor.rating)}%`
+const props = defineProps<{ sponsor: Sponsor }>()
 
 </script>
 
@@ -27,21 +12,24 @@ percentage["--progress"] = `${parsePercentage(props.sponsor.rating)}%`
    <div class="sponsor">
       <div class="sponsor-preview">
          <h6>Name</h6>
-         <h2>{{ sponsor.name }}</h2>
+         <h2>{{ props.sponsor.name }}</h2>
          <span>
-            {{ `${sponsor.county} ` }} {{ `${sponsor.city}` }}
+            {{ `${props.sponsor.county} ` }} {{ `${props.sponsor.city}` }}
             <i class="fas fa-chevron-right"></i>
          </span>
       </div>
       <div class="sponsor-info">
          <div class="progress-container">
-            <div class="progress" :style="[percentage]"></div>
-            <span class="progress-text">RATING: {{ sponsor.rating }}</span>
+            <div
+               class="progress"
+               :style="{ '--progress': `${parsePercentage(props.sponsor.rating)}%` }"
+            ></div>
+            <span class="progress-text">RATING: {{ props.sponsor.rating }}</span>
          </div>
          <h6>TYPE</h6>
-         <h2>{{ clean(sponsor.type) }}</h2>
+         <h2>{{ cleanString(props.sponsor.type) }}</h2>
          <div class="sponsor-routes">
-            <Button class="button-sm mt5" :text="route" v-for="route in sponsor.route" />
+            <Button class="button-sm mt5" :text="route" v-for="route in props.sponsor.route" />
          </div>
       </div>
    </div>

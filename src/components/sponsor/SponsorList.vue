@@ -1,13 +1,10 @@
 <script setup lang=ts>
-import { defineComponent, defineProps, PropType } from '@vue/runtime-core';
+import { defineComponent, defineProps } from '@vue/runtime-core';
 import { Sponsor } from '@/types';
 import SponsorListItem from "@/components/sponsor/SponsorListItem.vue"
 
-defineProps({
-   sponsors: {
-      type: Object as PropType<readonly Sponsor[]>,
-      default: () => []
-   }
+withDefaults(defineProps<{ sponsors: readonly Sponsor[] }>(), {
+   sponsors: () => []
 })
 
 defineComponent({
@@ -18,17 +15,19 @@ defineComponent({
 
 </script>
 
-<template>
-   <br />
-   <div class="result-total" v-if="sponsors.length > 0">Found {{ sponsors.length }} Sponsors</div>
-   <br />
-   <div
-      class="sponsor-container"
-      v-for="(sponsor, idx) in sponsors"
-      :key="`${sponsor.name}-${idx}`"
-   >
-      <SponsorListItem :sponsor="sponsor" />
-   </div>
+<template >
+   <template v-if="sponsors.length > 0">
+      <br />
+      <div class="result-total" v-if="sponsors.length > 0">Found {{ sponsors.length }} Sponsors</div>
+      <br />
+      <div
+         class="sponsor-container"
+         v-for="(sponsor, idx) in sponsors"
+         :key="`${sponsor.name}-${idx}`"
+      >
+         <SponsorListItem :sponsor="sponsor" />
+      </div>
+   </template>
 </template>
 
 <style scoped>
