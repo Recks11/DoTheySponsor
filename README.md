@@ -1,6 +1,12 @@
-# Vue 3 + Vite
+# DoTheySponsor?
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+But do they tho?. ever been tired of downloading the Uk Tier 2 Sponsors list everytime you need to check if a company provides sponsorship?. well look no further. This website kinda solves that specific problem.
+
+This is the frontend. the backend can be found here  👉🏽 [UkGovAPI](https://github.com/Recks11/UkGovAPI)
+
+
+<hr/>
+Made with VueJs. <3
 
 ## Recommended IDE Setup
 
