@@ -19,6 +19,7 @@ defineComponent({
    <template v-if="sponsors.length > 0">
       <br />
       <div class="result-total" v-if="sponsors.length > 0">Found {{ sponsors.length }} Sponsors</div>
+      <div class="result-total" v-if="sponsors.length > 0">Click a sponsor to copy direct link</div>
       <br />
       <div
          class="sponsor-container"

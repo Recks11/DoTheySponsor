@@ -3,12 +3,14 @@ import Footer from '@/components/Footer.vue';
 import Landing from '@/components/Landing.vue';
 import Modal from '@/components/micro/Modal.vue';
 import useState from '@/state/useState';
-import { onMounted } from '@vue/runtime-core';
 import useMutation from '@/state/useMutation';
+import { onMounted } from '@vue/runtime-core';
+import { extractNameFromUrl } from '@/util/urlutils'
 
 const { sponsorCount } = useState()
-const { ping } = useMutation()
-onMounted(() => ping())
+const { ping, findSponsor } = useMutation()
+onMounted(() => ping()
+  .then(() => parseUrl()))
 
 function toggleTheme() {
   const bodyClass = document.getElementById('body')?.getAttribute('class');
@@ -16,6 +18,11 @@ function toggleTheme() {
     const theme = bodyClass === 'light' ? 'dark' : 'light'
     document.getElementById('body')?.setAttribute('class', theme)
   }
+}
+
+async function parseUrl() {
+  const name = extractNameFromUrl()
+  await findSponsor(name)
 }
 
 </script>

@@ -2,20 +2,30 @@
 import { cleanString } from "@/util/stringutils";
 import { Sponsor } from "@/types";
 import { parsePercentage } from '@/util/ratingparser';
+import { clipboardCopy } from "@/util/clupboardutils";
 import Button from "@/components/micro/Button.vue";
 
 const props = defineProps<{ sponsor: Sponsor }>()
 
+function buildLink(name: string) {
+   const link = new URL(window.location.origin)
+   link.searchParams.append("name", encodeURI(name))
+   console.log(link.toString())
+   return link.toString()
+}
+
 </script>
 
 <template>
-   <div class="sponsor">
+   <div class="sponsor" @click="clipboardCopy(buildLink(props.sponsor.name))">
       <div class="sponsor-preview">
          <h6>Name</h6>
          <h2>{{ props.sponsor.name }}</h2>
          <span>
             {{ `${props.sponsor.county} ` }} {{ `${props.sponsor.city}` }}
-            <i class="fas fa-chevron-right"></i>
+            <i
+               class="fas fa-chevron-right"
+            ></i>
          </span>
       </div>
       <div class="sponsor-info">

@@ -1,18 +1,22 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import Button from '@/components/micro/Button.vue';
+import Events from "@/events";
 import useEvent from '@/state/useEvent';
 import useMutation from '@/state/useMutation';
-import Events from "@/events";
+import { extractNameFromUrl } from '@/util/urlutils';
+
 const { on } = useEvent()
 const { findSponsor } = useMutation()
 
 const entry = ref('')
 const enableSearch = ref(true)
+
 onMounted(() => {
    on(Events.SEARCH_ERROR, () => entry.value = '')
    on(Events.LOADING, () => enableSearch.value = false)
    on(Events.LOADED, () => enableSearch.value = true)
+   entry.value = extractNameFromUrl()
 })
 
 </script>

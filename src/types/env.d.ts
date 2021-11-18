@@ -1,4 +1,4 @@
-import { CSSProperties, StyleValue } from "@vue/runtime-dom";
+import { CSSProperties } from "@vue/runtime-dom";
 
 interface ImportMetaEnv extends Readonly<Record<string, string>> {
    readonly VITE_API_URL: string

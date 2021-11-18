@@ -1,7 +1,7 @@
 import Events from '@/events';
 import useEvent from '@/state/useEvent';
 import { Sponsor } from "@/types";
-import { notifyError, notifyInfo } from '@/util/notifier';
+import { notifyError, notifyInfo, clearNotifications } from '@/util/notifier';
 import fetch from "cross-fetch";
 
 const { LOADING, LOADED, MODAL_HIDE } = Events
@@ -27,35 +27,51 @@ async function extractBody(response: Response) {
 
 function cleanUp() {
    emit(LOADED)
-   emit(MODAL_HIDE)
+   clearNotifications()
 }
 
 
 async function ping() {
    emit(LOADING)
    notifyInfo('loading initial data')
-   return await fetch(sponsorUrl)
-      .then(res => res.json())
-      .catch(() => notifyError('error fetching data'))
-      .finally(() => cleanUp())
+
+   try {
+      const res = await fetch(sponsorUrl)
+      return res.json()
+   } catch (ex) {
+      notifyError('error fetching data')
+      throw ex;
+   } finally {
+      cleanUp()
+   }
 }
 
 async function getSponsor(name: string) {
    emit(LOADING)
    notifyInfo('getting sponsors')
-   return await fetch(`${sponsorUrl}?name=${name}`)
-      .then(res => extractBodyArray(res))
-      .catch(() => notifyError('error fetching data'))
-      .finally(() => cleanUp())
+   try {
+      const res = await fetch(`${sponsorUrl}?name=${name}`)
+      return extractBodyArray(res)
+   } catch (ex) {
+      notifyError('error fetching data')
+      throw ex;
+   } finally {
+      cleanUp()
+   }
 }
 
 async function findSponsorsByType(type: string) {
    emit(LOADING)
    notifyInfo('getting sponsors')
-   return await fetch(`${sponsorUrl}?type=${type}`)
-      .then(res => extractBodyArray(res))
-      .catch(() => notifyError('error fetching data'))
-      .finally(() => cleanUp())
+   try {
+      const res = await fetch(`${sponsorUrl}?type=${type}`)
+      return extractBodyArray(res)
+   } catch (ex) {
+      notifyError('error fetching data')
+      throw ex;
+   } finally {
+      cleanUp()
+   }
 }
 
 export const Api = {
